@@ -1,0 +1,6 @@
+Transaction,Stock_Name,Date,Num_of_Stocks,Price,Cost_of_Transaction,Transaction_ID
+buy,NVDIA,2022-03-01,10,125,1255,1
+buy,NVDIA,2022-06-01,15,120,1900,2
+buy,NVDIA,2022-08-01,10,130,1305,3
+buy,NVDIA,2022-12-02,50,100,5020,4
+buy,NVDIA,2022-12-10,50,90,5000,5
