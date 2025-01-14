@@ -4,7 +4,7 @@ import functions_calc as fc
 import streamlit as st
 
 st.set_page_config(page_title='Cost_Ave_Calc', 
-                   layout='wide', initial_sidebar_state='auto')
+                   layout='centered', initial_sidebar_state='auto')
 st.title('Basic Cost Averaging Calculator')
 st.text('This calculator aims to help determine the average share price that you paid for a stock and determine the target share price in your next purchase based on your preferred percentage gain(%).')
 
@@ -47,7 +47,9 @@ while user_prompt:
             cost = pd.to_numeric(df['Num_of_Stocks'], errors='coerce') * pd.to_numeric(df['Price'], errors='coerce')
             cost_ave_result = round(cost.sum() / pd.to_numeric(df['Num_of_Stocks'], errors='coerce').sum(), 2)
             #print(cost_ave_result)
+            total_shares_bought = pd.to_numeric(df['Num_of_Stocks'], errors='coerce').sum()
             st.table(all_events)
+            st.write(f'The total shares bought: {total_shares_bought}')
             st.write(f'The average share cost: {cost_ave_result}')
             break
 

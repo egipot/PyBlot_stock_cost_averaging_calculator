@@ -28,6 +28,8 @@ elif user_prompt == 'calculate':
     cost = pd.to_numeric(df['Num_of_Stocks'], errors='coerce') * pd.to_numeric(df['Price'], errors='coerce')
     cost_ave_result = round(cost.sum() / pd.to_numeric(df['Num_of_Stocks'], errors='coerce').sum(), 2)
     print(cost_ave_result)
+    total_shares_bought = pd.to_numeric(df['Num_of_Stocks'], errors='coerce').sum()
+    print(total_shares_bought)
 
 elif user_prompt == 'remove':
     all_events = fc.get_event() # Get the existing transactions
