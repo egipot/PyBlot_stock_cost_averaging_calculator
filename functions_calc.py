@@ -1,33 +1,63 @@
 #This file contains all the functions used in the basic_cost_ave_calc.py
 import csv
 import os
+import streamlit as st
 
-def add_transaction():
+################################################################
+# FUNCTIONS outside the streamlit app
+# def add_transaction():
+#     transaction_dict = {}
+#     transaction_dict['Transaction'] = input("Transaction ['buy', 'sell']: ")  
+#     if transaction_dict['Transaction'].lower() not in ('buy', 'sell'):
+#         return "Invalid Input"
+#     transaction_dict['Stock_Name'] = input("Stock_Name (abbreviation): ")  
+#     transaction_dict['Date'] = input("Date YYYY-MM-DD: ")  
+#     transaction_dict['Num_of_Stocks'] = input("Number of Stocks: ")  
+#     transaction_dict['Price'] = input("Price per Stock: ")
+#     transaction_dict['Cost_of_Transaction'] = input("Cost of Transaction: ")
+#     transaction_dict['Transaction_ID'] = int(input("Transaction ID: "))
+#     return transaction_dict
+
+# def edit_transaction():
+#     edit_transaction_dict = {}
+#     edit_transaction_dict['Transaction'] = input("Transaction ['buy', 'sell']: ")  
+#     if edit_transaction_dict['Transaction'].lower() not in ('buy', 'sell'):
+#         return "Invalid Input"
+#     edit_transaction_dict['Stock_Name'] = input("Stock_Name (abbreviation): ")  
+#     edit_transaction_dict['Date'] = input("Date YYYY-MM-DD: ")  
+#     edit_transaction_dict['Num_of_Stocks'] = input("Number of Stocks: ")  
+#     edit_transaction_dict['Price'] = input("Price per Stock: ")
+#     edit_transaction_dict['Cost_of_Transaction'] = input("Cost of Transaction: ")
+#     edit_transaction_dict['Transaction_ID'] = int(input("Transaction ID: "))
+#     return edit_transaction_dict
+################################################################
+
+def transaction_form():
     transaction_dict = {}
-    transaction_dict['Transaction'] = input("Transaction ['buy', 'sell']: ")  
-    if transaction_dict['Transaction'].lower() not in ('buy', 'sell'):
-        return "Invalid Input"
-    transaction_dict['Stock_Name'] = input("Stock_Name (abbreviation): ")  
-    transaction_dict['Date'] = input("Date YYYY-MM-DD: ")  
-    transaction_dict['Num_of_Stocks'] = input("Number of Stocks: ")  
-    transaction_dict['Price'] = input("Price per Stock: ")
-    transaction_dict['Cost_of_Transaction'] = input("Cost of Transaction: ")
-    transaction_dict['Transaction_ID'] = int(input("Transaction ID: "))
-    return transaction_dict
-
-
-def edit_transaction():
-    edit_transaction_dict = {}
-    edit_transaction_dict['Transaction'] = input("Transaction ['buy', 'sell']: ")  
-    if edit_transaction_dict['Transaction'].lower() not in ('buy', 'sell'):
-        return "Invalid Input"
-    edit_transaction_dict['Stock_Name'] = input("Stock_Name (abbreviation): ")  
-    edit_transaction_dict['Date'] = input("Date YYYY-MM-DD: ")  
-    edit_transaction_dict['Num_of_Stocks'] = input("Number of Stocks: ")  
-    edit_transaction_dict['Price'] = input("Price per Stock: ")
-    edit_transaction_dict['Cost_of_Transaction'] = input("Cost of Transaction: ")
-    edit_transaction_dict['Transaction_ID'] = int(input("Transaction ID: "))
-    return edit_transaction_dict
+    with st.form("my_form"):
+        #st.slider("Inside the form")
+        transaction_dict['Transaction'] = st.pills('action', ['buy', 'sell'], selection_mode='single')
+        transaction_dict['Stock_Name'] = st.text_input("Stock_Name (abbreviation): ", placeholder='Enter the Stock Abbreviated Name (do not press enter yet)') 
+        transaction_dict['Date'] = st.text_input("Date YYYY-MM-DD: ", placeholder='Enter the data. Do not press enter yet, please use the Submit button')  
+        transaction_dict['Num_of_Stocks'] = st.text_input("Number of Stocks: ", placeholder='Enter the data. Do not press enter yet, please use the Submit button')  
+        transaction_dict['Price'] = st.text_input("Price per Stock: ", placeholder='Enter the data. Do not press enter yet, please use the Submit button')
+        transaction_dict['Cost_of_Transaction'] = st.text_input("Cost of Transaction: ", placeholder='Enter the data. Do not press enter yet, please use the Submit button')
+        transaction_dict['Transaction_ID'] = st.text_input("Transaction ID: ", placeholder='Enter the data. Do not press enter yet, please use the Submit button')
+        submitted = st.form_submit_button("Submit")
+        if submitted:
+            print(transaction_dict)
+            print(list(transaction_dict.values()))
+            exists = False
+            values_to_check = ['', ' ', None]
+            for check in values_to_check: 
+                if check in transaction_dict.values():
+                    exists = True
+            print(exists)
+            if exists == True:
+                print('Incomplete input')
+            else: 
+                print('OK')
+                return transaction_dict
 
 
 def get_event(filepath_r = 'entries.csv'):
