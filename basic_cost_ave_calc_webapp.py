@@ -3,6 +3,8 @@ from pprint import pprint
 import functions_calc as fc
 import streamlit as st
 
+CURRENCY = '$'
+
 st.set_page_config(page_title='Cost_Ave_Calc', 
                    layout='centered', initial_sidebar_state='auto')
 st.title('Basic Cost Averaging Calculator')
@@ -43,14 +45,97 @@ while user_prompt:
             all_events = fc.get_event() # Get the existing transactions
             df = pd.DataFrame(all_events)
             df.set_index('Transaction_ID')
-            # Convert 'Price' column to numeric, handling errors
-            cost = pd.to_numeric(df['Num_of_Stocks'], errors='coerce') * pd.to_numeric(df['Price'], errors='coerce')
-            cost_ave_result = round(cost.sum() / pd.to_numeric(df['Num_of_Stocks'], errors='coerce').sum(), 2)
-            #print(cost_ave_result)
-            total_shares_bought = pd.to_numeric(df['Num_of_Stocks'], errors='coerce').sum()
             st.table(all_events)
-            st.write(f'The total shares bought: {total_shares_bought}')
-            st.write(f'The average share cost: {cost_ave_result}')
+            
+            ### CALCULATOR FORMULA ###
+            # Total owned stocks
+            total_shares_bought = pd.to_numeric(df['Num_of_Stocks'], errors='coerce').sum()
+
+            # Convert 'Price' column to numeric, handling errors
+            net_amount = pd.to_numeric(df['Num_of_Stocks'], errors='coerce') * pd.to_numeric(df['Price'], errors='coerce')
+            cost_ave_result = round(net_amount.sum() / pd.to_numeric(df['Num_of_Stocks'], errors='coerce').sum(), 2)
+
+            # Gross purchase price ((#shares * purchase price) + commissions)
+            gross_amount = round(pd.to_numeric(df['Cost_of_Transaction'], errors='coerce').sum(), 2)
+
+            # Total commission / spread / fees:
+            fees = gross_amount - net_amount.sum()
+            fees_percentage = round((fees / gross_amount)*100, 4)
+            
+            #SUMMARY:
+            # st.write(f'SUMMARY:')
+            # st.write(f'You have invested: {total_shares_bought} shares at {cost_ave_result} = $ {net_amount.sum()}')
+            # st.write(f'Breakdown:')
+            # st.write(f'\tTotal shares bought: {total_shares_bought} units')
+            # st.write(f'\tAverage share price: {CURRENCY} {cost_ave_result}')
+            # st.write(f'\tGross amount (including commission, spread, ...) : {CURRENCY} {gross_amount}')
+            # st.write(f'\tNet amount of your investment: {CURRENCY} {net_amount.sum()}')
+            # st.write(f'\tTotal commission/spread/fees: {CURRENCY} {fees} ({fees_percentage}%) ')
+            
+            st.subheader('Summary of Investment: ')
+
+            col11, col12, = st.columns(2)
+            col11.metric(label="Total shares bought", 
+                         value=f"{total_shares_bought:,} unit(s)", 
+                         border=True, 
+                         help="The number of stocks bought, \
+                         calculated after deduction of fees from the gross amount.")
+            col12.metric(label="Average share price", 
+                         value=f"{cost_ave_result:,}", 
+                         border=True, 
+                         help="Average price paid per stock in multiple purchases.")
+            
+            col21, col22, = st.columns(2)
+            col21.metric(label="Gross amount invested", 
+                         value=f"{CURRENCY} {gross_amount:,}", 
+                         border=True, 
+                         help="Total purchase price including broker commission, spread, and other fees.")
+            col22.metric(label="Net amount invested", 
+                         value=f"{CURRENCY} {net_amount.sum():,}", 
+                         border=True, 
+                         help="Total amount paid solely for the stocks.")
+
+            col31, col32, = st.columns(2)
+            col31.metric(label="Total commission/spread/fees", 
+                         value=f"{CURRENCY} {fees:,}", 
+                         border=True, 
+                         help="Total fees due to broker commission, spread, ...")
+            col32.metric(label="Total commission/spread/fees in percentage", 
+                         value=f"{fees_percentage} %", 
+                         border=True, 
+                         help="Total amount paid solely for the stocks.")
+
+
+            st.write('What do you want to do next? ')
+            #st.write('  A: Calculate the gain/loss percentage based on the current price ')
+            #st.write('  B: Buy more shares at your preferred price and get the updated average share price and gain/loss percentage of your investment. ')
+            #st.write('  C: Determine the target selling price of all your current stocks based on your preferred gain percentage. ')
+
+            expander_A = st.expander('A: Calculate the gain/loss percentage based on the current price')
+            current_stock_price = float(expander_A.text_input(f'How much is the stock price now? (You may check in YahooFinance or MarketWatch)  {CURRENCY} '))
+            current_invest_value = pd.to_numeric(df['Num_of_Stocks'], errors='coerce').sum() * current_stock_price
+            expander_A.write(f"Current investment's value: {CURRENCY} {round(current_invest_value,2):,}")
+        
+#
+            set_tax = float(expander_A.text_input('Enter the Tax (%) required in your country: '))
+            gain_loss_if_selling_in_current_price = round((((current_stock_price * total_shares_bought)*(1+(set_tax/100))) - (gross_amount)) ,2)
+            expander_A.write(f'If you sell all {total_shares_bought:,} shares at this current price, then deducting the tax, your profit(or loss) is: {CURRENCY} {round(gain_loss_if_selling_in_current_price):,}')
+    
+            if (current_invest_value *(1+(set_tax/100))) > gross_amount: 
+                #expander_A.write(f'({round(current_invest_value*(1+(set_tax/100)),2)}-{gross_amount})*100/{gross_amount}')
+                expander_A.write(f'That is {round(((current_invest_value*(1+(set_tax/100)))-gross_amount)*100/gross_amount,2):,}% gain!')
+                expander_A.write(f'The whole amount that you will receive after selling is: {CURRENCY}{round(current_invest_value*(1+(set_tax/100))):,}! ') 
+                expander_A.write(f'Congratulations! Keep on investing and learning!')
+            elif current_invest_value == gross_amount:
+                expander_A.write('Breakeven. You just paid your taxes without income. Congratulations on being a good citizen :D')
+            else: 
+                expander_A.write(f'{CURRENCY} {gain_loss_if_selling_in_current_price:,}')
+                expander_A.write(f'{((gain_loss_if_selling_in_current_price - gross_amount)/gross_amount):,} %')
+                expander_A.write("Loss.. Don't worry, this is just a paperloss if you average down. Just make sure that the company is still worth investing in...")
+   
+
+#
+
             break
 
         elif user_prompt == 'remove':
