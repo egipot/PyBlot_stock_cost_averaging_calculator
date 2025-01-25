@@ -11,8 +11,8 @@ def how_to_use():
 
     st.text('  - add: to fill up a purchase or investment')
     st.text('  - view: to display the currently entered transactions.')
-    st.text('  - edit: to re-enter each detail of the Transaction_ID ')
-    st.text('  - remove: to delete a transaction by entering the row index + 1')
+    st.text('  - edit: to re-enter each detail of the specified transaction based on row number. ')
+    st.text('  - remove: to delete a transaction by entering the row number.')
     st.text('  - calculate has three successive operations:')
     st.write('      - get the summary of the current data (total shares bought, average price of purchases, total investment and fees.)')
     st.write('      - provide the present market price of the stock and know if you have gains or losses so far in your investment.')
@@ -32,7 +32,6 @@ def main_webapp():
 
     options = ['add', 'view', 'edit', 'calculate', 'remove']
 
-    #user_prompt = input("Type 'add', 'view', 'edit', 'calculate', 'remove' or 'exit': ")
     user_prompt = st.selectbox('How would like to proceed? ', options, index=None, 
                             key='selectbox',on_change=on_change_user_prompt,
                             placeholder='Select an action here...')
@@ -61,7 +60,7 @@ def main_webapp():
             elif user_prompt == 'calculate':
                 all_events = fc.get_event() # Get the existing transactions
                 df = pd.DataFrame(all_events)
-                df.set_index('Transaction_ID')
+                #df.set_index('Transaction_ID')
                 st.table(all_events)
                 
                 ### CALCULATOR FORMULA ###
@@ -209,11 +208,11 @@ def main_webapp():
                 entry_to_remove = int(st.text_input('Enter the row index: '))
                 #entry_to_remove = entry_to_remove-1
                 if entry_to_remove not in range (len(all_events)):
-                    st.warning('Provided Transaction_ID does not exist.')
+                    st.warning('Provided row# does not exist.')
                 else:
                     all_events.pop(entry_to_remove)
                     #pprint(all_events)
-                    st.info(f'Transaction_ID {entry_to_remove+1} has been removed.')
+                    st.info(f'Row #{entry_to_remove+1} has been removed.')
                     st.write('The updated transactions: ')
                     st.table(all_events)
                     fc.write_event(all_events) # Write all events to the CSV file
@@ -225,13 +224,13 @@ def main_webapp():
                 entry_to_edit = int(st.text_input('Enter the row index: '))
                 #entry_to_edit = entry_to_edit-1
                 if entry_to_edit not in range (len(all_events)):
-                    st.warning('Provided Transaction_ID does not exist.')
+                    st.warning('Provided row # does not exist.')
                 else:
                     edited = fc.transaction_form()
                     all_events[entry_to_edit] = edited 
                     #pprint(all_events)
                     if True:
-                        st.write(f'With the updated Transaction_ID {entry_to_edit + 1}: ')
+                        st.write(f'With the updated row #{entry_to_edit + 1}: ')
                         st.table(all_events)
                         fc.write_event(all_events) # Write all events to the CSV file
                 break
