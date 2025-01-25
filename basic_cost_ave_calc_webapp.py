@@ -1,5 +1,4 @@
 import pandas as pd
-from pprint import pprint
 import functions_calc as fc
 import streamlit as st
 
