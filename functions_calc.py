@@ -10,7 +10,7 @@ def add_transaction():
     transaction_dict['Transaction'] = input("Transaction ['buy', 'sell']: ")  
     if transaction_dict['Transaction'].lower() not in ('buy', 'sell'):
         return "Invalid Input"
-    transaction_dict['Stock_Name'] = input("Stock_Name (abbreviation): ")  
+    #transaction_dict['Stock_Name'] = input("Stock_Name (abbreviation): ")  
     transaction_dict['Date'] = input("Date YYYY-MM-DD: ")  
     transaction_dict['Num_of_Stocks'] = input("Number of Stocks: ")  
     transaction_dict['Price'] = input("Price per Stock: ")
@@ -23,7 +23,7 @@ def edit_transaction():
     edit_transaction_dict['Transaction'] = input("Transaction ['buy', 'sell']: ")  
     if edit_transaction_dict['Transaction'].lower() not in ('buy', 'sell'):
         return "Invalid Input"
-    edit_transaction_dict['Stock_Name'] = input("Stock_Name (abbreviation): ")  
+    #edit_transaction_dict['Stock_Name'] = input("Stock_Name (abbreviation): ")  
     edit_transaction_dict['Date'] = input("Date YYYY-MM-DD: ")  
     edit_transaction_dict['Num_of_Stocks'] = input("Number of Stocks: ")  
     edit_transaction_dict['Price'] = input("Price per Stock: ")
@@ -36,8 +36,8 @@ def transaction_form():
     transaction_dict = {}
     with st.form("my_form"):
         #st.slider("Inside the form")
-        transaction_dict['Transaction'] = st.pills('action', ['buy', 'sell'], selection_mode='single')
-        transaction_dict['Stock_Name'] = st.text_input("Stock_Name (abbreviation): ", placeholder='Enter the Stock Abbreviated Name (do not press enter yet)') 
+        #transaction_dict['Transaction'] = st.pills('action', ['buy', 'sell'], selection_mode='single')
+        #transaction_dict['Stock_Name'] = st.text_input("Stock_Name (abbreviation): ", placeholder='Enter the Stock Abbreviated Name (do not press enter yet)') 
         transaction_dict['Date'] = st.text_input("Date YYYY-MM-DD: ", placeholder='Enter the data. Do not press enter yet, please use the Submit button')  
         transaction_dict['Num_of_Stocks'] = st.text_input("Number of Stocks: ", placeholder='Enter the data. Do not press enter yet, please use the Submit button')  
         transaction_dict['Price'] = st.text_input("Price per Stock: ", placeholder='Enter the data. Do not press enter yet, please use the Submit button')

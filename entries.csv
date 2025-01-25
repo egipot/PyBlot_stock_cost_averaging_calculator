@@ -1,8 +1,7 @@
-Transaction,Stock_Name,Date,Num_of_Stocks,Price,Cost_of_Transaction,Transaction_ID
-buy,NVDIA,2022-03-10,10,123,1235,1
-buy,NVDIA,2022-06-01,15,120,1900,2
-buy,NVDIA,2022-08-01,10,130,1305,3
-buy,NVDIA,2022-12-02,50,100,5020,4
-buy,NVDIA,2024-06-01,100,100,10010,5
-buy,NVDIA,2024-07-02,100,200,20100,6
-buy,NVDIA,2024-08-04,200,300,60300,7
+Transaction,Date,Num_of_Stocks,Price,Cost_of_Transaction,Transaction_ID
+buy,2022-03-10,10,123,1235,1
+buy,2022-06-01,15,120,1900,2
+buy,2022-08-01,10,130,1305,3
+buy,2022-12-02,50,100,5020,4
+buy,2024-06-01,100,100,10010,5
+buy,2024-07-02,100,200,20100,6
