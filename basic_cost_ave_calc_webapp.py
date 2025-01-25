@@ -208,8 +208,8 @@ def main_webapp():
                 set_target_gain = float(st.text_input('What is your preferred gains (?)? '))
                 target_selling_price_initial = round(total_shares_bought/((1-(fees_percentage/100))*(1-(set_tax/100))*(1+(set_target_gain/100))),2)
                 target_selling_price_new = round(new_total_shares_bought/((1-(fees_percentage/100))*(1-(set_tax/100))*(1+(set_target_gain/100))),2)
-                st.subheader(f'To gain {set_target_gain}% with the initial shares of {total_shares_bought}, you should set the target selling price to: {CURRENCY} {target_selling_price_initial}')
-                st.subheader(f'To gain {set_target_gain}% with the new total shares of {new_total_shares_bought}, you should set the target selling price to: {CURRENCY} {target_selling_price_new}')
+                st.subheader(f'To gain {set_target_gain}% with the initial shares of {round(total_shares_bought,2)}, you should set the target selling price to: {CURRENCY} {target_selling_price_initial}')
+                st.subheader(f'To gain {set_target_gain}% with the new total shares of {round(new_total_shares_bought,4)}, you should set the target selling price to: {CURRENCY} {target_selling_price_new}')
                 
                 break
 
