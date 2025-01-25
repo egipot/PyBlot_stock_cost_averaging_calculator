@@ -65,11 +65,11 @@ def main_webapp():
                 
                 ### CALCULATOR FORMULA ###
                 # Total owned stocks
-                total_shares_bought = pd.to_numeric(df['Num_of_Stocks'], errors='coerce').sum()
+                total_shares_bought = pd.to_numeric(df['Num_of_Shares'], errors='coerce').sum()
 
-                # Convert 'Price' column to numeric, handling errors
-                net_amount = pd.to_numeric(df['Num_of_Stocks'], errors='coerce') * pd.to_numeric(df['Price'], errors='coerce')
-                cost_ave_result = round(net_amount.sum() / pd.to_numeric(df['Num_of_Stocks'], errors='coerce').sum(), 2)
+                # Convert 'Price_per_share' column to numeric, handling errors
+                net_amount = pd.to_numeric(df['Num_of_Shares'], errors='coerce') * pd.to_numeric(df['Price_per_share'], errors='coerce')
+                cost_ave_result = round(net_amount.sum() / pd.to_numeric(df['Num_of_Shares'], errors='coerce').sum(), 2)
 
                 # Gross purchase price ((#shares * purchase price) + commissions)
                 gross_amount = round(pd.to_numeric(df['Cost_of_Transaction'], errors='coerce').sum(), 2)
@@ -121,7 +121,7 @@ def main_webapp():
                 st.markdown(''' :green[A: Calculate the gain/loss percentage based on the current price.]''')
                 #st.markdown(''':red[Streamlit] :orange[can] :green[write] :blue[text] :violet[in] :gray[pretty] :rainbow[colors] and :blue-background[highlight] text.''')
                 current_stock_price = float(st.text_input(f'How much is the stock price now? (You may check in YahooFinance or MarketWatch)  {CURRENCY} '))
-                current_invest_value = pd.to_numeric(df['Num_of_Stocks'], errors='coerce').sum() * current_stock_price
+                current_invest_value = pd.to_numeric(df['Num_of_Shares'], errors='coerce').sum() * current_stock_price
                 st.write(f"Current investment's value: {CURRENCY} {round(current_invest_value,2):,}")
             
                 set_tax = float(st.text_input('Enter the Tax (%) required in your country: '))
@@ -212,7 +212,7 @@ def main_webapp():
                 else:
                     all_events.pop(entry_to_remove)
                     #pprint(all_events)
-                    st.info(f'Row #{entry_to_remove+1} has been removed.')
+                    st.info(f'Row #{entry_to_remove} has been removed.')
                     st.write('The updated transactions: ')
                     st.table(all_events)
                     fc.write_event(all_events) # Write all events to the CSV file

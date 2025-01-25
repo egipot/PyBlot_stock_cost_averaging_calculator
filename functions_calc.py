@@ -11,7 +11,7 @@ def add_transaction():
     #    return "Invalid Input"
     #transaction_dict['Stock_Name'] = input("Stock_Name (abbreviation): ")  
     transaction_dict['Date'] = input("Date YYYY-MM-DD: ")  
-    transaction_dict['Num_of_Stocks'] = input("Number of Stocks: ")  
+    transaction_dict['Num_of_Shares'] = input("Number of Stocks: ")  
     transaction_dict['Price'] = input("Price per Stock: ")
     transaction_dict['Cost_of_Transaction'] = input("Cost of Transaction: ")
     #transaction_dict['Transaction_ID'] = int(input("Transaction ID: "))
@@ -24,7 +24,7 @@ def edit_transaction():
     #     return "Invalid Input"
     #edit_transaction_dict['Stock_Name'] = input("Stock_Name (abbreviation): ")  
     edit_transaction_dict['Date'] = input("Date YYYY-MM-DD: ")  
-    edit_transaction_dict['Num_of_Stocks'] = input("Number of Stocks: ")  
+    edit_transaction_dict['Num_of_Shares'] = input("Number of Stocks: ")  
     edit_transaction_dict['Price'] = input("Price per Stock: ")
     edit_transaction_dict['Cost_of_Transaction'] = input("Cost of Transaction: ")
     #edit_transaction_dict['Transaction_ID'] = int(input("Transaction ID: "))
@@ -38,7 +38,7 @@ def transaction_form():
         #transaction_dict['Transaction'] = st.pills('action', ['buy', 'sell'], selection_mode='single')
         #transaction_dict['Stock_Name'] = st.text_input("Stock_Name (abbreviation): ", placeholder='Enter the Stock Abbreviated Name (do not press enter yet)') 
         transaction_dict['Date'] = st.date_input("Date YYYY-MM-DD: ", format="YYYY.MM.DD")  
-        transaction_dict['Num_of_Stocks'] = st.number_input("Number of Stocks: ", placeholder='Enter the data. Do not press enter yet, please use the Submit button')  
+        transaction_dict['Num_of_Shares'] = st.number_input("Number of Stocks: ", placeholder='Enter the data. Do not press enter yet, please use the Submit button')  
         transaction_dict['Price'] = st.number_input("Price per Stock: ", placeholder='Enter the data. Do not press enter yet, please use the Submit button')
         transaction_dict['Cost_of_Transaction'] = st.number_input("Cost of Transaction: ", placeholder='Enter the data. Do not press enter yet, please use the Submit button')
         #transaction_dict['Transaction_ID'] = st.number_input("Transaction ID: ", placeholder='Enter the data. Do not press enter yet, please use the Submit button')
@@ -72,7 +72,7 @@ def get_event(filepath_r = 'entries.csv'):
         # If file not found, create it with headers
         with open(filepath_r, 'w', newline='') as writefile_local:
             writer = csv.writer(writefile_local)
-            writer.writerow(['Date', 'Num_of_Stocks', 'Price', 'Cost_of_Transaction'])  # Add header
+            writer.writerow(['Date', 'Num_of_Shares', 'Price_per_share', 'Cost_of_Transaction'])  # Add header
             return [] # Return an empty list if file was not found initially
 
 
@@ -82,7 +82,7 @@ def write_event(all_events, filepath_w='entries.csv'):
     into the existing CSV file.
     """
     # Get the fieldnames from the first transaction if available
-    fieldnames = all_events[0].keys() if all_events else ['Transaction', 'Stock_Name', 'Date', 'Num_of_Stocks', 'Price', 'Cost_of_Transaction', 'Transaction_ID']
+    fieldnames = all_events[0].keys() if all_events else ['Date', 'Num_of_Shares', 'Price_per_share', 'Cost_of_Transaction']
 
     with open(filepath_w, 'w', newline='') as writefile_local:
         writer = csv.DictWriter(writefile_local, fieldnames=fieldnames)
