@@ -7,11 +7,12 @@ CURRENCY = '$'
 def how_to_use():
     st.title("How to use: PyBlot's Basic Cost Averaging Calculator ")
     st.subheader("")
-    st.markdown(':green[1. This calculator is intended to calculate positions for one stock only. ]')
+    st.markdown('1. This calculator is intended to calculate positions for one stock only.')
+
     st.text('  - add: to fill up a purchase or investment')
     st.text('  - view: to display the currently entered transactions.')
     st.text('  - edit: to re-enter each detail of the Transaction_ID ')
-    st.text('  - remove: to delete a transaction by entering its Transaction_ID')
+    st.text('  - remove: to delete a transaction by entering the row index + 1')
     st.text('  - calculate has three successive operations:')
     st.write('      - get the summary of the current data (total shares bought, average price of purchases, total investment and fees.)')
     st.write('      - provide the present market price of the stock and know if you have gains or losses so far in your investment.')
@@ -29,7 +30,7 @@ def main_webapp():
     def on_change_user_prompt():
         st.session_state['selectbox']
 
-    options = ['add', 'view', 'edit', 'calculate', 'remove', 'exit']
+    options = ['add', 'view', 'edit', 'calculate', 'remove']
 
     #user_prompt = input("Type 'add', 'view', 'edit', 'calculate', 'remove' or 'exit': ")
     user_prompt = st.selectbox('How would like to proceed? ', options, index=None, 
@@ -77,16 +78,6 @@ def main_webapp():
                 # Total commission / spread / fees:
                 fees = gross_amount - net_amount.sum()
                 fees_percentage = round((fees / gross_amount)*100, 4)
-                
-                #SUMMARY:
-                # st.write(f'SUMMARY:')
-                # st.write(f'You have invested: {total_shares_bought} shares at {cost_ave_result} = $ {net_amount.sum()}')
-                # st.write(f'Breakdown:')
-                # st.write(f'\tTotal shares bought: {total_shares_bought} units')
-                # st.write(f'\tAverage share price: {CURRENCY} {cost_ave_result}')
-                # st.write(f'\tGross amount (including commission, spread, ...) : {CURRENCY} {gross_amount}')
-                # st.write(f'\tNet amount of your investment: {CURRENCY} {net_amount.sum()}')
-                # st.write(f'\tTotal commission/spread/fees: {CURRENCY} {fees} ({fees_percentage}%) ')
                 
                 st.subheader('Summary of Investment: ')
 
@@ -152,10 +143,9 @@ def main_webapp():
                     st.write(f'{((gain_loss_if_selling_in_current_price - gross_amount)/gross_amount):,} %')
                     st.write(f"{round(initial_gain_loss_percentage,2):,}% Loss.. Don't worry, this is just a paperloss if you average down. Just make sure that the company is still worth investing in...")
     
-                # expander_common 
+                 
                 st.markdown(''' :green[B: Buy more shares at your preferred price and get the updated average share price and gain/loss percentage of your investment.]''')
                 
-                #expander_common = st.expander('B: Buy more shares at your preferred price and get the updated average share price and gain/loss percentage of your investment. ', expanded=True)
                 buy_new_gross_amount = float(st.text_input(f'How much are you willing to add in your investment? {CURRENCY} '))
                 buy_new_price_ave_down = float(st.text_input(f'How much is your bidding price? {CURRENCY} '))
                     
@@ -216,8 +206,8 @@ def main_webapp():
             elif user_prompt == 'remove':
                 all_events = fc.get_event() # Get the existing transactions
                 #pprint(all_events)
-                entry_to_remove = int(st.text_input('Enter the transaction_ID to remove: '))
-                entry_to_remove = entry_to_remove-1
+                entry_to_remove = int(st.text_input('Enter the row index: '))
+                #entry_to_remove = entry_to_remove-1
                 if entry_to_remove not in range (len(all_events)):
                     st.warning('Provided Transaction_ID does not exist.')
                 else:
@@ -232,8 +222,8 @@ def main_webapp():
             elif user_prompt == 'edit':
                 all_events = fc.get_event() # Get the existing transactions
                 st.table(all_events)
-                entry_to_edit = int(st.text_input('Enter the transaction_ID to edit: '))
-                entry_to_edit = entry_to_edit-1
+                entry_to_edit = int(st.text_input('Enter the row index: '))
+                #entry_to_edit = entry_to_edit-1
                 if entry_to_edit not in range (len(all_events)):
                     st.warning('Provided Transaction_ID does not exist.')
                 else:
@@ -246,11 +236,8 @@ def main_webapp():
                         fc.write_event(all_events) # Write all events to the CSV file
                 break
 
-            elif user_prompt == 'exit':
-                print('exiting...')
-                break
-
             else:
+                #print('exiting...')
                 break
 
         except:
