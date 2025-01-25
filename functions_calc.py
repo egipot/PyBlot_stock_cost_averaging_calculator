@@ -1,6 +1,5 @@
 #This file contains all the functions used in the basic_cost_ave_calc.py
 import csv
-import os
 import streamlit as st
 
 ################################################################
