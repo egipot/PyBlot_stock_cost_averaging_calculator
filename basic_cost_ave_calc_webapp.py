@@ -122,18 +122,19 @@ def main_webapp():
                 #st.markdown(''':red[Streamlit] :orange[can] :green[write] :blue[text] :violet[in] :gray[pretty] :rainbow[colors] and :blue-background[highlight] text.''')
                 current_stock_price = float(st.text_input(f'How much is the stock price now? (You may check in YahooFinance or MarketWatch)  {CURRENCY} '))
                 current_invest_value = pd.to_numeric(df['Num_of_Shares'], errors='coerce').sum() * current_stock_price
-                st.write(f"Current investment's value: {CURRENCY} {round(current_invest_value,2):,}")
+                st.subheader(f"Current investment's value: {CURRENCY} {round(current_invest_value,2):,}")
             
                 set_tax = float(st.text_input('Enter the Tax (%) required in your country: '))
-                gain_loss_if_selling_in_current_price = round((((current_stock_price * total_shares_bought)*(1+(set_tax/100))) - (gross_amount)) ,2)
-                st.subheader(f'If you sell all {total_shares_bought:,} shares at this current price, then deducting the tax, your profit(or loss) is: {CURRENCY} {round(gain_loss_if_selling_in_current_price):,}')
+                gain_loss_if_selling_in_current_price = round((((current_stock_price * total_shares_bought)*(1-(fees_percentage/100))*(1-(set_tax/100))) - (gross_amount)) ,2)
+                st.write(f'If you sell all {total_shares_bought:,} shares at this current price, then deducting the tax, your profit(or loss) is: {CURRENCY} {round(gain_loss_if_selling_in_current_price):,}')
 
-                initial_gain_loss_percentage = ((current_invest_value*(1+(set_tax/100)))-gross_amount)*100/gross_amount
+                initial_gain_loss_percentage = ((current_invest_value*(1-(fees_percentage/100))*(1-(set_tax/100)))-gross_amount)*100/gross_amount
 
-                if (current_invest_value *(1+(set_tax/100))) > gross_amount: 
+                if (current_invest_value*(1-(fees_percentage/100))*(1-(set_tax/100))) > gross_amount: 
                     #st.write(f'({round(current_invest_value*(1+(set_tax/100)),2)}-{gross_amount})*100/{gross_amount}')
-                    st.subheader(f'That is {round(initial_gain_loss_percentage,2):,}% initial gain!')
-                    st.write(f'The whole amount that you will receive after selling is: {CURRENCY}{round(current_invest_value*(1+(set_tax/100))):,}! ') 
+                    st.write(f'That is {round(initial_gain_loss_percentage,2):,}% initial gain!')
+                    st.subheader(f'The whole amount that you will receive after selling is: {CURRENCY}{round(current_invest_value*(1-(fees_percentage/100))*(1-(set_tax/100))):,}! ') 
+                    #st.write(f'{current_invest_value} ** {(1-(fees_percentage/100))} ** {(1-(set_tax/100))} ')
                     st.write(f'Congratulations! Keep on investing and learning!')
                 elif current_invest_value == gross_amount:
                     st.subheader('Breakeven. You just paid your taxes without income. Congratulations on being a good citizen :D')
@@ -195,8 +196,8 @@ def main_webapp():
 
                 st.markdown(''':green[C: Determine the target selling price of all your current stocks based on your preferred gain percentage.]''')
                 set_target_gain = float(st.text_input('What is your preferred gains (?)? '))
-                target_selling_price_initial = round(total_shares_bought/((1-(fees_percentage/100))*(1-(set_tax/100))*(1+(set_target_gain/100))),2)
-                target_selling_price_new = round(new_total_shares_bought/((1-(fees_percentage/100))*(1-(set_tax/100))*(1+(set_target_gain/100))),2)
+                target_selling_price_initial = round(gross_amount*1.5/((total_shares_bought)*(1-(fees_percentage/100))*(1-(set_tax/100))),2)
+                target_selling_price_new = round(new_gross_amount*1.5/((new_total_shares_bought)*(1-(fees_percentage/100))*(1-(set_tax/100))),2)
                 st.subheader(f'To gain {set_target_gain}% with the initial shares of {round(total_shares_bought,2)}, you should set the target selling price to: {CURRENCY} {target_selling_price_initial}')
                 st.subheader(f'To gain {set_target_gain}% with the new total shares of {round(new_total_shares_bought,4)}, you should set the target selling price to: {CURRENCY} {target_selling_price_new}')
                 

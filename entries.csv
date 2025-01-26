@@ -1,1 +1,6 @@
-Date,Num_of_Stocks,Price,Cost_of_Transaction
+Date,Num_of_Shares,Price_per_share,Cost_of_Transaction
+2025-01-01,10.0,100.0,1005.0
+2025-01-02,10.0,90.0,905.0
+2025-01-03,10.0,80.0,805.0
+2025-01-04,10.0,90.0,905.0
+2025-01-05,10.0,100.0,1005.0
