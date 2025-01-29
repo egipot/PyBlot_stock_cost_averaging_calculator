@@ -5,7 +5,7 @@ import streamlit as st
 CURRENCY = '$'
 
 st.title("PyBlot's Basic Cost Averaging Calculator ")
-st.subheader("Sample Computation:")
+st.subheader("Sample Computation - Part A:")
 all_sample = fc.get_sample() # Get the existing transactions
 df = pd.DataFrame(all_sample)
 st.table(all_sample)
@@ -58,21 +58,17 @@ col32.metric(label="Total commission/spread/fees in percentage",
                             help="Total amount paid solely for the stocks.")
 
 
-st.markdown(''':green[What can you calculate next?]''')
-st.markdown(''':green[   A: Calculate the gain/loss percentage based on the current price] ''')
-st.markdown(''':green[   B: Buy more shares at your preferred price and get the updated average share price and gain/loss percentage of your investment. ]''')
-st.markdown(''':green[   C: Determine the target selling price of all your current stocks based on your preferred gain percentage.] ''')
-
 st.subheader('A: Calculate the gain/loss percentage based on the current price.')
 set_tax = 10 
 
 def calculationA_sample():
     values = [200, 103.3364, 103.3365, 90]
     for index, current_stock_price in enumerate(values):
-        st.write(f'Sample Calculation# {index+1}')
-    
+        st.write('-----------------------------------------------------') 
+        st.write(f'Sample Calculation # {index+1}')
+        st.markdown(f'''Assuming the current stock price = ***{CURRENCY} {current_stock_price}***''')
         current_invest_value = total_shares_bought * current_stock_price
-        st.subheader(f"Gross investment's value: {CURRENCY} {round(current_invest_value,4):,}" )
+        st.write(f"""***Gross investment's value: {CURRENCY} {round(current_invest_value,4):,}***""" )
     
         set_tax = 10
         
@@ -138,6 +134,3 @@ def calculationA_sample():
 
 calculationA_sample()
 
-##################################################################        
-
-st.write('-----------------------------------------------------') 

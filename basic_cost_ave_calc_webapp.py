@@ -17,7 +17,7 @@ def on_change_user_prompt():
 options = ['add', 'view', 'edit', 'calculate', 'remove']
 
 user_prompt = st.selectbox('How would like to proceed? ', options, index=None, 
-                    key='selectbox',on_change=on_change_user_prompt,
+                    key='selectbox',on_change=on_change_user_prompt, 
                     placeholder='Select an action here...')
 while user_prompt:
     st.write('You selected: ', user_prompt )
@@ -208,6 +208,7 @@ while user_prompt:
             value_metric = new_ave_share_price
             delta_metric = new_ave_share_price - cost_ave_result 
         
+
         colB11, colB12 = st.columns(2, border=True)
         colB11.metric(label="Additional shares bought", 
                     value=f"{round(new_shares_ave_down,4):,} unit(s)", 
@@ -233,6 +234,7 @@ while user_prompt:
         colB32.metric(label="New total net amount invested", 
                     value=f"{CURRENCY} {round(new_net_amount,2):,}", 
                     help="Sum of previous total and the new amount that is solely invested in the shares.")
+        
         
         
         st.subheader('C: Determine the target selling price of all your current stocks based on your preferred gain percentage.')
