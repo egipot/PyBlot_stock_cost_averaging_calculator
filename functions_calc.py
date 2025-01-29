@@ -11,8 +11,8 @@ def add_transaction():
     #    return "Invalid Input"
     #transaction_dict['Stock_Name'] = input("Stock_Name (abbreviation): ")  
     transaction_dict['Date'] = input("Date YYYY-MM-DD: ")  
-    transaction_dict['Num_of_Shares'] = input("Number of Stocks: ")  
-    transaction_dict['Price'] = input("Price per Stock: ")
+    transaction_dict['Num_of_Shares'] = input("Number of Shares: ")  
+    transaction_dict['Price'] = input("Price per Share: ")
     transaction_dict['Cost_of_Transaction'] = input("Cost of Transaction: ")
     #transaction_dict['Transaction_ID'] = int(input("Transaction ID: "))
     return transaction_dict
@@ -24,8 +24,8 @@ def edit_transaction():
     #     return "Invalid Input"
     #edit_transaction_dict['Stock_Name'] = input("Stock_Name (abbreviation): ")  
     edit_transaction_dict['Date'] = input("Date YYYY-MM-DD: ")  
-    edit_transaction_dict['Num_of_Shares'] = input("Number of Stocks: ")  
-    edit_transaction_dict['Price'] = input("Price per Stock: ")
+    edit_transaction_dict['Num_of_Shares'] = input("Number of Share: ")  
+    edit_transaction_dict['Price'] = input("Price per Share: ")
     edit_transaction_dict['Cost_of_Transaction'] = input("Cost of Transaction: ")
     #edit_transaction_dict['Transaction_ID'] = int(input("Transaction ID: "))
     return edit_transaction_dict
@@ -59,6 +59,16 @@ def transaction_form():
                 return transaction_dict
 
 
+def get_sample(filepath_r = 'sample.csv'):
+    """
+    Gets the existing transaction from the entries.csv file
+    If the file is not found, creates the file and returns an empty list
+    """
+    with open(filepath_r, 'r') as readfile_local:
+        reader = csv.DictReader(readfile_local)
+        return list(reader) # Return as a list of dictionaries
+
+
 def get_event(filepath_r = 'entries.csv'):
     """
     Gets the existing transaction from the entries.csv file
@@ -89,3 +99,7 @@ def write_event(all_events, filepath_w='entries.csv'):
         writer.writeheader()  # Write header row
         writer.writerows(all_events)  # Write all the transaction data
 
+
+if __name__ == '__main__':
+    print('Hello')
+    
