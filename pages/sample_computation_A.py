@@ -83,7 +83,7 @@ def calculationA_sample():
 
         if  initial_gain_loss_value > 0.01:  
             st.markdown(f''':green[The total amount that you will receive after selling is: ***{CURRENCY} {round(current_invest_value_minus_fees_and_tax,2):,}***!] ''') 
-            st.markdown(f''':green[If you sell all {round(total_shares_bought,2):,} shares at the current price of {current_stock_price}, then deducting the {fees_percentage}% tax, your profit is: ***{CURRENCY} {round(gain_loss_if_selling_in_current_price,2):,}***]''')
+            st.markdown(f''':green[If you sell all {round(total_shares_bought,2):,} shares at the current price of {current_stock_price}, then deducting the {fees_percentage}% fees and {set_tax}% tax, your profit is: ***{CURRENCY} {round(gain_loss_if_selling_in_current_price,2):,}***]''')
             st.markdown(f''':green[That is ***{round(initial_gain_loss_percentage,4):,}%*** initial gain!]''')
             st.markdown(f''':green[Congratulations! Keep on investing and learning!]''')
 
@@ -101,7 +101,7 @@ def calculationA_sample():
             
         elif  0.0 <= initial_gain_loss_value <= 0.01: 
             #st.markdown(f''':blue[The total amount that you will receive after selling is: {CURRENCY} {round(current_invest_value_minus_fees_and_tax,2):,}!] ''')
-            st.markdown(f''':blue[If you sell all {round(total_shares_bought,4):,} shares at the current price of {current_stock_price}, then deducting the {fees_percentage}% tax, you are expected to receive: {CURRENCY} {round(gain_loss_if_selling_in_current_price,4):,}]''')
+            st.markdown(f''':blue[If you sell all {round(total_shares_bought,4):,} shares at the current price of {current_stock_price}, then deducting the {fees_percentage}% fees and {set_tax}% tax, you are expected to receive: {CURRENCY} {round(gain_loss_if_selling_in_current_price,4):,}]''')
             st.markdown(f''':blue[Breakeven. You just paid your broker and taxes without income. Congratulations on being a good citizen!]''')
 
             expander4 = st.expander("See the breakdown: ") 
@@ -118,7 +118,7 @@ def calculationA_sample():
         
         else: 
             #st.markdown(f''':red[{CURRENCY} {round(gain_loss_if_selling_in_current_price,2):,}]''')
-            st.markdown(f''':red[If you sell all {round(total_shares_bought,2):,} shares at the current price of USD {current_stock_price}, then deducting the {fees_percentage}% tax, your balance will be deducted by: ***{CURRENCY} {round(gain_loss_if_selling_in_current_price,2):,}***]''')
+            st.markdown(f''':red[If you sell all {round(total_shares_bought,2):,} shares at the current price of USD {current_stock_price}, then deducting the {fees_percentage}% fees and {set_tax}% tax, your balance will be deducted by: ***{CURRENCY} {round(gain_loss_if_selling_in_current_price,2):,}***]''')
             st.markdown(f''':red[Your investment is at ***{round(initial_gain_loss_percentage,4):,}%*** loss. Do not worry, this is just a paperloss if you average down. Just make sure that the company is still worth investing in...]''')
             
             expander5 = st.expander("See the breakdown: ") 
