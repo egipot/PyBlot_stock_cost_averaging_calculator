@@ -60,8 +60,8 @@ def calc_B(buy_new_gross_amount, buy_new_price_ave_down, current_stock_price):
 
     set_tax = 10
 
-    st.markdown(f'''***An investment of USD {buy_new_gross_amount}***, and bid ***USD {buy_new_price_ave_down}*** per share has been added.''')
-    st.markdown(f'''When the stock reaches the ***market price of {current_stock_price}***, then the new summary of investment will be: ''')
+    st.markdown(f'''***Adding an investment of :blue-background[USD {buy_new_gross_amount}]***, with bid price set at ***:blue-background[USD {buy_new_price_ave_down} per share.]***''')
+    st.markdown(f'''When the stock reaches the ***:blue-background[market price of USD {current_stock_price}]***, then the new summary of investment will be: ''')
 
     new_shares_ave_down = (buy_new_gross_amount*(1-(fees_percentage/100)))/buy_new_price_ave_down
     new_total_shares_bought = total_shares_bought + new_shares_ave_down
@@ -152,9 +152,11 @@ def calc_B(buy_new_gross_amount, buy_new_price_ave_down, current_stock_price):
 
 
 
-st.write(f'Sample Calculation # 1')
+st.markdown(f'''**:gray-background[Sample Calculation # 1: Average Down (buying additional shares with cheaper price than the previous average.)]**''')
+st.markdown(f''':gray[Do this ONLY IF you know and have studied that the company still has solid fundamentals and has an upside potential.]''')
 calc_B(1000, 60, 150)
 
 st.write('-----------------------------------------------------') 
-st.write(f'Sample Calculation # 2')
+st.write(f'''**:gray-background[Sample Calculation # 2: Average Up (buying additional shares with higher price than the previous average.]**''')
+st.markdown(f''':gray[This case tends to happen when buy a stock periodically, or when you are eager to ride a momentum. Be careful with this strategy as this risks higher losses when faced to a sudden price drop.]''')
 calc_B(1000, 150, 150)
