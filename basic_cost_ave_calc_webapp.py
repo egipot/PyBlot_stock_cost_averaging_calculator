@@ -127,7 +127,7 @@ while user_prompt:
 
         if  initial_gain_loss_value > 0.01:  
             st.markdown(f''':green[The total amount that you will receive after selling is: ***{CURRENCY} {round(current_invest_value_minus_fees_and_tax,2):,}***!] ''') 
-            st.markdown(f''':green[If you sell all {round(total_shares_bought,2):,} shares at the current price of {current_stock_price}, then deducting the {fees_percentage}% tax, your profit is: ***{CURRENCY} {round(gain_loss_if_selling_in_current_price,2):,}***]''')
+            st.markdown(f''':green[If you sell all {round(total_shares_bought,2):,} shares at the current price of {current_stock_price}, then deducting the {set_tax}% tax and {fees_percentage}% fees , your profit is: ***{CURRENCY} {round(gain_loss_if_selling_in_current_price,2):,}***]''')
             st.markdown(f''':green[That is ***{round(initial_gain_loss_percentage,4):,}%*** initial gain!]''')
             st.markdown(f''':green[Congratulations! Keep on investing and learning!]''')
 
