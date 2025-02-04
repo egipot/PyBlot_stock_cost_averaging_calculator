@@ -6,9 +6,9 @@ import streamlit as st
 CURRENCY = '$'
 
 
-st.set_page_config(page_title='Cost_Average_Calculator', 
+st.set_page_config(page_title='Cost_Averaging_Calculator', 
             layout='centered', initial_sidebar_state='auto')
-st.title("PyBlot's Basic Cost Averaging Calculator")
+st.title("PyBlot's Cost Averaging Calculator")
 st.text('This calculator aims to help determine the average share price that you paid for a stock and determine the target share price in your next purchase based on your preferred percentage gain(%).')
 
 def on_change_user_prompt():
@@ -104,7 +104,7 @@ while user_prompt:
         expander1.markdown(''':orange[Total fees in percentage = sum(Cost_of_Transaction - (Num_of_Shares * Price_per_share)) / sum(Cost_of_Transaction)]''')
 
 
-        st.markdown(''':blue[What can you calculate next?]''')
+        st.markdown('''**:blue[What can you calculate next?]**''')
         st.markdown(''':blue[   A: Calculate the gain/loss percentage based on the current price] ''')
         st.markdown(''':blue[   B: Buy more shares at your preferred price and get the updated average share price and gain/loss percentage of your investment. ]''')
         st.markdown(''':blue[   C: Determine the target selling price of all your current stocks based on your preferred gain percentage.] ''')

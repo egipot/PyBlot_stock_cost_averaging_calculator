@@ -66,7 +66,7 @@ def calculationA_sample():
     sample_type = ['Investment with Gains', 'Breakeven', 'Investment with Losses']
     for index, current_stock_price in enumerate(values):
         st.write('-----------------------------------------------------') 
-        st.write(f'Sample Calculation # {index+1}: {sample_type[index]}')
+        st.markdown(f'***Sample Calculation # {index+1}: :blue-background[{sample_type[index]}]***')
         st.markdown(f'''Assuming the current stock price = ***{CURRENCY} {current_stock_price}***''')
         current_invest_value = total_shares_bought * current_stock_price
         st.write(f"""***Gross investment's value: {CURRENCY} {round(current_invest_value,4):,}***""" )

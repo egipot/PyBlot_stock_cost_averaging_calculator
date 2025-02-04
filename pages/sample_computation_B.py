@@ -58,7 +58,7 @@ st.subheader('B: Buy more shares at your preferred price and get the updated ave
 
 def calc_B(buy_new_gross_amount, buy_new_price_ave_down, current_stock_price):
 
-    set_tax = 10
+    #set_tax = 10
 
     st.markdown(f'''***Adding an investment of :blue-background[USD {buy_new_gross_amount}]***, with bid price set at ***:blue-background[USD {buy_new_price_ave_down} per share.]***''')
     st.markdown(f'''When the stock reaches the ***:blue-background[market price of USD {current_stock_price}]***, then the new summary of investment will be: ''')
@@ -100,13 +100,6 @@ def calc_B(buy_new_gross_amount, buy_new_price_ave_down, current_stock_price):
                 value=f"{CURRENCY} {round(new_net_amount,2):,}", 
                 help="Sum of previous total and the new amount that is solely invested in the shares.")
 
-    colB41, colB42 = st.columns(2, border=True)
-    colB41.metric(label="Total gain/loss", 
-                value=f"{CURRENCY} {round(gains_loss_currency,2):,}", 
-                help="Gains/losses in currency = (total_shares_bought * current_stock_price) - fees - gross_amount ")
-    colB42.metric(label="Percent gain/loss", 
-                value=f"{round(gains_loss_percent,4):,} %", 
-                help="Gains/losses in percentage = ((total_shares_bought * current_stock_price) - fees - gross_amount) * 100 / gross_amount ")
 
     
     expander8 = st.expander("See the breakdown: ") 
@@ -160,3 +153,4 @@ st.write('-----------------------------------------------------')
 st.write(f'''**:gray-background[Sample Calculation # 2: Average Up (buying additional shares with higher price than the previous average.]**''')
 st.markdown(f''':gray[This case tends to happen when buy a stock periodically, or when you are eager to ride a momentum. Be careful with this strategy as this risks higher losses when faced to a sudden price drop.]''')
 calc_B(1000, 150, 150)
+
