@@ -12,7 +12,7 @@ st.text('  - REMOVE: to delete a transaction by entering the row number.')
 st.text('  - CALCULATE has these successive operations:')
 st.write('      - [By default] Get the summary of the current data (total shares bought, average price of purchases, total investment and fees.)')
 st.write('      - [Part A] Provide the present market price of the stock to know if you have gains or losses in your investment ')
-st.write('      - [Part B: Optional] If you refuse to add further investment and directly proceed to part C (getting target sell price based on profit percentage), just enter zeros in the additional investments.')
+st.write('      - [Part B: Optional] This section can simulate an average-down (buying more stocks at a lower price than the initial average price) or average-up (vice-versa) purchase. This will affect how your future profits/losses will be, based on the future market price. If you refuse to add further investment and directly proceed to part C (getting target sell price based on profit percentage), just enter zeros this section.')
 st.write('      - [Part C] Set your target earnings (in percentage) and get the target selling price to achieve such gain (after tax and broker fees). This way, you can easily monitor and set price alerts, as the stock reaches that price. It is good to have a sound plan and detach to emotions when it comes to investing :) ')
 st.text('\n')
 
