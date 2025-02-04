@@ -187,7 +187,7 @@ while user_prompt:
         st.subheader('B: Buy more shares at your preferred price and get the updated average share price and gain/loss percentage of your investment.')
         
         ### CALCULATOR FORMULA - B ###
-        buy_new_gross_amount = float(st.number_input(f'How much are you willing to add in your investment? {CURRENCY} '))
+        buy_new_gross_amount = float(st.number_input(f'How much are you willing to add in your investment? {CURRENCY}'))
         buy_new_price_ave_down = float(st.number_input(f'How much is your bidding price? {CURRENCY} '))
         #st.write({buy_new_gross_amount}, {type(buy_new_gross_amount)})
         #st.write({buy_new_price_ave_down}, {type(buy_new_price_ave_down)})
