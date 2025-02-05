@@ -87,14 +87,14 @@ def calc_B(buy_new_gross_amount, buy_new_price_ave_down, current_stock_price):
                 value=f"{round(new_total_shares_bought,4):,} unit(s)", 
                 help="Sum of previous total and the newly purchased shares.")
     colB22.metric(label="New average price", 
-                value=f"{CURRENCY} {round(new_ave_share_price,4):,}", 
+                value=f"{CURRENCY} {round(new_ave_share_price,2):,}", 
                 delta = delta_metric, 
                 delta_color = 'inverse',
                 help="Average price paid per stock, that is computed from all the purchases. A green indicates that you have successfully averaged down (new gains is better than the initial gain percentage). A negative(arrow down) indicates that you averaged up.")
 
     colB31, colB32 = st.columns(2, border=True)
     colB31.metric(label="New total gross amount invested", 
-                value=f"{CURRENCY} {round(new_gross_amount,4):,}", 
+                value=f"{CURRENCY} {round(new_gross_amount,2):,}", 
                 help="Sum of all purchases with cummulative fees (broker commission / spread).")
     colB32.metric(label="New total net amount invested", 
                 value=f"{CURRENCY} {round(new_net_amount,2):,}", 
@@ -104,20 +104,20 @@ def calc_B(buy_new_gross_amount, buy_new_price_ave_down, current_stock_price):
     
     expander8 = st.expander("See the breakdown: ") 
     expander8.markdown(f'''**Additional shares bought** ''')
-    expander8.markdown(f''' = (additional investment * (1-(fees_percentage/100))) / bid_price''')
+    expander8.markdown(f''' = (additional investment * (1-(fees percentage/100))) / bid price''')
     expander8.markdown(f''' = ({buy_new_gross_amount} * (1-({fees_percentage}/100))) / {buy_new_price_ave_down} ''')
     expander8.markdown(f''' = ({buy_new_gross_amount} * {(1-(fees_percentage/100))}) / {buy_new_price_ave_down} ''')
     expander8.markdown(f''' = {buy_new_gross_amount * (1-(fees_percentage/100))} / {buy_new_price_ave_down} ''')
     expander8.markdown(f''' = ***{buy_new_gross_amount * (1-(fees_percentage/100))  / buy_new_price_ave_down} unit(s)***''')
     
     expander8.markdown(f'''**Additional net amount invested** *(no tax applied when buying; only fees)*''')
-    expander8.markdown(f''' = additional investment * (1-(fees_percentage/100))''')
+    expander8.markdown(f''' = additional investment * (1-(fees percentage/100))''')
     expander8.markdown(f''' = {buy_new_gross_amount} * (1-({fees_percentage}/100))  ''')
     expander8.markdown(f''' = {buy_new_gross_amount} * {(1-(fees_percentage/100))}  ''')
     expander8.markdown(f''' = ***{CURRENCY} {(buy_new_gross_amount * (1-(fees_percentage/100))):,}***''')
     
     expander8.markdown(f'''**New total shares bought** ''')
-    expander8.markdown(f''' = initial total shares + ((additional investment * (1-(fees_percentage/100))) / bid_price)''')
+    expander8.markdown(f''' = initial total shares + ((additional investment * (1-(fees percentage/100))) / bid price)''')
     expander8.markdown(f''' = {total_shares_bought} + (({buy_new_gross_amount} * (1-({fees_percentage}/100))) / {buy_new_price_ave_down}) ''')
     expander8.markdown(f''' = {total_shares_bought} + {((buy_new_gross_amount * (1-(fees_percentage/100))) / buy_new_price_ave_down)} ''')
     expander8.markdown(f''' = ***{total_shares_bought + ((buy_new_gross_amount * (1-(fees_percentage/100))) / buy_new_price_ave_down)} unit(s)***''')
@@ -136,12 +136,12 @@ def calc_B(buy_new_gross_amount, buy_new_price_ave_down, current_stock_price):
     expander8.markdown(f'''**New total gross amount invested**''')
     expander8.markdown(f''' = (gross amount invested + additional investment) ''')
     expander8.markdown(f''' = {gross_amount} + {buy_new_gross_amount} ''')
-    expander8.markdown(f''' = ***{CURRENCY} {gross_amount + buy_new_gross_amount}***''')
+    expander8.markdown(f''' = ***{CURRENCY} {(gross_amount + buy_new_gross_amount):,}***''')
 
     expander8.markdown(f'''**New total net amount invested**''')
     expander8.markdown(f''' = (net amount invested + additional net amount invested) ''')
     expander8.markdown(f''' = {(buy_new_gross_amount * (1-(fees_percentage/100)))} + {net_amount} ''')
-    expander8.markdown(f''' = ***{CURRENCY} {new_net_amount}***''')
+    expander8.markdown(f''' = ***{CURRENCY} {new_net_amount:,}***''')
 
 
 

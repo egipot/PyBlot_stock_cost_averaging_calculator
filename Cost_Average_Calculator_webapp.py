@@ -20,7 +20,7 @@ user_prompt = st.selectbox('How would like to proceed? ', options, index=None,
                     key='selectbox',on_change=on_change_user_prompt, 
                     placeholder='Select an action here...')
 while user_prompt:
-    st.write('You selected: ', user_prompt )
+    #st.write('You selected: ', user_prompt )
 
 
     if user_prompt == 'add':
@@ -42,10 +42,13 @@ while user_prompt:
 
 
     elif user_prompt == 'calculate':
+        st.markdown('''*:gray-background[These are the currently saved transactions. Feel free to add / edit / remove entries:]*''')
         all_events = fc.get_event() # Get the existing transactions
         df = pd.DataFrame(all_events)
         st.table(all_events)
         
+        st.markdown('''*:gray[Note: Cost of Transaction = (number of shares * price per share) + broker commission, spread, and other fees.]*''')
+    
         ### CALCULATOR FORMULA - A ###
         # Total owned stocks
         total_shares_bought = pd.to_numeric(df['Num_of_Shares'], errors='coerce').sum()
@@ -96,12 +99,12 @@ while user_prompt:
 
         
         expander1 = st.expander("See the formula:")
-        expander1.markdown(''':orange[Total shares bought = sum(Num_of_Shares)]''')
-        expander1.markdown(''':orange[Average share price = (sum(Num_of_Shares * Price_per_share)) / sum(Num_of_Shares)]''')
-        expander1.markdown(''':orange[Initial gross amount invested = sum(Cost_of_Transaction)]''')
-        expander1.markdown(''':orange[Initial net amount invested = sum(Num_of_Shares * Price_per_share)]''')
-        expander1.markdown(''':orange[Total fees in currency = sum(Cost_of_Transaction - (Num_of_Shares * Price_per_share))]''')
-        expander1.markdown(''':orange[Total fees in percentage = sum(Cost_of_Transaction - (Num_of_Shares * Price_per_share)) / sum(Cost_of_Transaction)]''')
+        expander1.markdown(''':orange[Total shares bought = sum(Number of Shares)]''')
+        expander1.markdown(''':orange[Average share price = (sum(Number of Shares * Price per share)) / sum(Number of Shares)]''')
+        expander1.markdown(''':orange[Initial gross amount invested = sum(Cost of Transaction)]''')
+        expander1.markdown(''':orange[Initial net amount invested = sum(Number of Shares * Price per share)]''')
+        expander1.markdown(''':orange[Total fees in currency = sum(Cost of Transaction - (Number of Shares * Price per share))]''')
+        expander1.markdown(''':orange[Total fees in percentage = sum(Cost of Transaction - (Number of Shares * Price per share)) / sum(Cost of Transaction)]''')
 
 
         st.markdown('''**:blue[What can you calculate next?]**''')
@@ -132,16 +135,16 @@ while user_prompt:
             st.markdown(f''':green[Congratulations! Keep on investing and learning!]''')
 
             expander3 = st.expander("See the breakdown: ") 
-            expander3.markdown(f"""***Gross investment value*** = total_shares_bought * current_stock_price = {total_shares_bought} * {current_stock_price} = ***{CURRENCY} {total_shares_bought * current_stock_price}***""")
+            expander3.markdown(f"""***Gross investment value*** = total shares bought * current share price = {total_shares_bought} * {current_stock_price} = ***{CURRENCY} {total_shares_bought * current_stock_price}***""")
             expander3.markdown('''Derive the ***total amount that you will receive after selling:***''')
-            expander3.markdown(f''' = Total shares bought * current share price * (1-(fees percentage/100)) * (1-(tax/100))''')
+            expander3.markdown(f''' = Total shares bought * current share price * (1-(fees percentage/100)) * (1-(tax percentage/100))''')
             expander3.markdown(f''' = {total_shares_bought} * {current_stock_price} * (1-({fees_percentage}/100)) * (1-({set_tax}/100)) ''')
             expander3.markdown(f''' = {total_shares_bought} * {current_stock_price} * {(1-(fees_percentage/100))} * {(1-(set_tax/100))} = ***{CURRENCY} {round(current_invest_value_minus_fees_and_tax,2):,}***''')
             expander3.markdown(f'''***Profit / Loss in currency*** ''')
-            expander3.markdown(f''' = (Total shares bought * current share price * (1-(fees percentage/100)) * (1-(tax/100))) - Initial gross amount invested''')
+            expander3.markdown(f''' = (Total shares bought * current share price * (1-(fees percentage/100)) * (1-(tax percentage/100))) - Initial gross amount invested''')
             expander3.markdown(f''' = ({total_shares_bought} * {current_stock_price} * (1-({fees_percentage}/100)) * (1-({set_tax}/100))) - {gross_amount} = ***{CURRENCY} {round(initial_gain_loss_value,2):,}*** ''')
             expander3.markdown(f'''***Profit / Loss in percentage***  ''')
-            expander3.markdown(f''' = ((Total shares bought * current share price * (1-(fees percentage/100)) * (1-(tax/100))) - Initial gross amount invested) *100 / Initial gross amount invested ''')
+            expander3.markdown(f''' = ((Total shares bought * current share price * (1-(fees percentage/100)) * (1-(tax percentage/100))) - Initial gross amount invested) *100 / Initial gross amount invested ''')
             expander3.markdown(f''' = (({total_shares_bought} * {current_stock_price}*(1-({fees_percentage}/100))*(1-({set_tax}/100)))-{gross_amount})*100/{gross_amount} = ***{round(initial_gain_loss_percentage,4):,} %*** ''')
 
             
@@ -151,16 +154,16 @@ while user_prompt:
             st.markdown(f''':blue[Breakeven. You just paid your broker and taxes without income. Congratulations on being a good citizen!]''')
 
             expander4 = st.expander("See the breakdown: ") 
-            expander4.markdown(f"""***Gross investment value*** = total_shares_bought * current_stock_price = {total_shares_bought} * {current_stock_price} = ***{CURRENCY} {total_shares_bought * current_stock_price}***""")
+            expander4.markdown(f"""***Gross investment value*** = total shares bought * current_stock_price = {total_shares_bought} * {current_stock_price} = ***{CURRENCY} {total_shares_bought * current_stock_price}***""")
             expander4.markdown('''Derive the ***total amount that you will receive after selling:***''')
-            expander4.markdown(f''' = total shares bought * current share price * (1-(fees percentage/100)) * (1-(tax/100))''')
+            expander4.markdown(f''' = total shares bought * current share price * (1-(fees percentage/100)) * (1-(tax percentage/100))''')
             expander4.markdown(f''' = {total_shares_bought} * {current_stock_price} * (1-({fees_percentage}/100)) * (1-({set_tax}/100)) ''')
             expander4.markdown(f''' = {total_shares_bought} * {current_stock_price} * {(1-(fees_percentage/100))} * {(1-(set_tax/100))} = ***{CURRENCY} {round(current_invest_value_minus_fees_and_tax,2):,}***''')
             expander4.markdown(f'''***Profit / Loss in currency*** ''')
-            expander4.markdown(f''' = (total share _bought * current share price * (1-(fees percentage/100)) * (1-(tax/100))) - initial gross amount invested''')
+            expander4.markdown(f''' = (total shares bought * current share price * (1-(fees percentage/100)) * (1-(tax percentage/100))) - initial gross amount invested''')
             expander4.markdown(f''' = ({total_shares_bought} * {current_stock_price} * (1-({fees_percentage}/100)) * (1-({set_tax}/100))) - {gross_amount} = ***{CURRENCY} {round(initial_gain_loss_value,2):,}*** ''')
             expander4.markdown(f'''***Profit / Loss in percentage*** ''')
-            expander4.markdown(f''' = ((total shares bought * current share price * (1-(fees percentage/100)) * (1-(tax/100))) - initial gross amount invested) *100 / initial gross amount invested ''')
+            expander4.markdown(f''' = ((total shares bought * current share price * (1-(fees percentage/100)) * (1-(tax percentage/100))) - initial gross amount invested) *100 / initial gross amount invested ''')
             expander4.markdown(f''' = (({total_shares_bought} * {current_stock_price} * (1-({fees_percentage}/100))*(1-({set_tax}/100)))-{gross_amount})*100/{gross_amount} = ***{round(initial_gain_loss_percentage,4):,} %*** ''')
 
         
@@ -171,16 +174,16 @@ while user_prompt:
             
 
             expander5 = st.expander("See the breakdown: ") 
-            expander5.markdown(f"""***Gross investment value*** = total_shares_bought * current_stock_price = {total_shares_bought} * {current_stock_price} = ***{CURRENCY} {total_shares_bought * current_stock_price}***""")
+            expander5.markdown(f"""***Gross investment value*** = total shares bought * current share price = {total_shares_bought} * {current_stock_price} = ***{CURRENCY} {total_shares_bought * current_stock_price}***""")
             expander5.markdown('''Derive the ***total amount that you will receive after selling:***''')
-            expander5.markdown(f''' = total_shares_bought * current share price * (1-(fees percentage/100)) * (1-(tax/100))''')
+            expander5.markdown(f''' = total shares bought * current share price * (1-(fees percentage/100)) * (1-(tax percentage/100))''')
             expander5.markdown(f''' = {total_shares_bought} * {current_stock_price} * (1-({fees_percentage}/100)) * (1-({set_tax}/100)) ''')
             expander5.markdown(f''' = {total_shares_bought} * {current_stock_price} * {(1-(fees_percentage/100))} * {(1-(set_tax/100))} = ***{CURRENCY} {round(current_invest_value_minus_fees_and_tax,2):,}***''')
             expander5.markdown(f'''***Profit / Loss in currency*** ''')
-            expander5.markdown(f''' = (total_shares_bought * current_stock_price * (1-(fees percentage/100)) * (1-(tax/100))) - initial gross amount invested''')
+            expander5.markdown(f''' = (total shares bought * current share price * (1-(fees percentage/100)) * (1-(tax percentage/100))) - initial gross amount invested''')
             expander5.markdown(f''' = ({total_shares_bought} * {current_stock_price} * (1-({fees_percentage}/100)) * (1-({set_tax}/100))) - {gross_amount} = ***{CURRENCY} {round(initial_gain_loss_value,2):,}*** ''')
             expander5.markdown(f'''***Profit / Loss in percentage***  ''')
-            expander5.markdown(f''' = ((total shares bought * current share price * (1-(fees percentage/100)) * (1-(tax/100))) - initial gross amount invested) * 100 / initial gross amount invested ''')
+            expander5.markdown(f''' = (total shares bought * current share price * (1-(fees percentage/100)) * (1-(tax percentage/100))) - initial gross amount invested) * 100 / initial gross amount invested ''')
             expander5.markdown(f''' = (({total_shares_bought} * {current_stock_price} * (1-({fees_percentage}/100))*(1-({set_tax}/100)))-{gross_amount}) * 100 / {gross_amount} = ***{round(initial_gain_loss_percentage,4):,} %*** ''')
 
 
@@ -230,7 +233,7 @@ while user_prompt:
                     value=f"{round(new_total_shares_bought,4):,} unit(s)", 
                     help="Sum of previous total and the newly purchased shares.")
         colB22.metric(label="New average price", 
-                    value=f"{CURRENCY} {round(new_ave_share_price,4):,}", 
+                    value=f"{CURRENCY} {round(new_ave_share_price,2):,}", 
                     delta = delta_metric, 
                     delta_color = 'inverse',
                     help="Average price paid per stock, that is computed from all the purchases. A green, negative value indicates that you have successfully averaged down (new gains is better than the initial gain percentage). A red, positive value indicates that you averaged up.")
@@ -238,7 +241,7 @@ while user_prompt:
 
         colB31, colB32 = st.columns(2, border=True)
         colB31.metric(label="New total gross amount invested", 
-                    value=f"{CURRENCY} {round(new_gross_amount,4):,}", 
+                    value=f"{CURRENCY} {round(new_gross_amount,2):,}", 
                     help="Sum of all purchases with cummulative fees (broker commission / spread).")
         colB32.metric(label="New total net amount invested", 
                     value=f"{CURRENCY} {round(new_net_amount,2):,}", 
@@ -302,13 +305,13 @@ while user_prompt:
         
         expander2 = st.expander("See the breakdown: ") 
         #target = (gross_amount * (1 + (set_target_gain / 100))) / (total_shares_bought * (1 - ((set_tax / 100) + (fees_percentage / 100))))
-        expander2.markdown(f"""***Target selling price based on initial investment*** = (Initial total gross amount invested * (1 + (target gain percentage / 100))) / (total_shares_bought * (1 - ((set_tax / 100) + (fees_percentage / 100)))) """)
+        expander2.markdown(f"""***Target selling price based on initial investment*** = (initial total gross amount invested * (1 + (target gain percentage / 100))) / (initial total shares bought * (1 - ((tax percentage / 100) + (fees percentage / 100)))) """)
         expander2.markdown(f''' = ({gross_amount} * (1 + ({set_target_gain} / 100))) / ({total_shares_bought} * (1 - (({set_tax} / 100) + ({fees_percentage} / 100))))''')
         expander2.markdown(f''' = ({gross_amount} * {(1 + (set_target_gain / 100))}) / ({total_shares_bought} * (1 - {((set_tax / 100) + (fees_percentage / 100))}))''')
         expander2.markdown(f''' = {(gross_amount * (1 + (set_target_gain / 100)))} / {(total_shares_bought * (1 - ((set_tax / 100) + (fees_percentage / 100))))}''')
         expander2.markdown(f''' = ***{CURRENCY} {(gross_amount * (1 + (set_target_gain / 100))) / (total_shares_bought * (1 - ((set_tax / 100) + (fees_percentage / 100))))}***''')
 
-        expander2.markdown(f"""***Target selling price with additional investment*** = (New total gross amount invested * (1 + (target gain percentage / 100))) / (New total shares bought * (1 - ((set_tax / 100) + (fees_percentage / 100)))) """)
+        expander2.markdown(f"""***Target selling price with additional investment*** = (new total gross amount invested * (1 + (target gain percentage / 100))) / (new total shares bought * (1 - ((tax / 100) + (fees percentage / 100)))) """)
         expander2.markdown(f''' = ({new_gross_amount} * (1 + ({set_target_gain} / 100))) / ({new_total_shares_bought} * (1 - (({set_tax} / 100) + ({fees_percentage} / 100))))''')
         expander2.markdown(f''' = ({new_gross_amount} * {(1 + (set_target_gain / 100))}) / ({new_total_shares_bought} * (1 - {((set_tax / 100) + (fees_percentage / 100))}))''')
         expander2.markdown(f''' = {(new_gross_amount * (1 + (set_target_gain / 100)))} / {(new_total_shares_bought * (1 - ((set_tax / 100) + (fees_percentage / 100))))}''')

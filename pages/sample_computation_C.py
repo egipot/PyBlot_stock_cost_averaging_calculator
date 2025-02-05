@@ -62,13 +62,13 @@ def calc_c(set_target_gain):
     
     expander2 = st.expander("See the breakdown: ") 
     #target = (gross_amount * (1 + (set_target_gain / 100))) / (total_shares_bought * (1 - ((set_tax / 100) + (fees_percentage / 100))))
-    expander2.markdown(f"""***Target selling price based on initial investment*** = (Initial total gross amount invested * (1 + (target gain percentage / 100))) / (total_shares_bought * (1 - ((set_tax / 100) + (fees_percentage / 100)))) """)
+    expander2.markdown(f"""***Target selling price based on initial investment*** = (initial total gross amount invested * (1 + (target gain percentage / 100))) / (initial total shares bought * (1 - ((tax percentage / 100) + (fees percentage / 100)))) """)
     expander2.markdown(f''' = ({gross_amount} * (1 + ({set_target_gain} / 100))) / ({total_shares_bought} * (1 - (({set_tax} / 100) + ({fees_percentage} / 100))))''')
     expander2.markdown(f''' = ({gross_amount} * {(1 + (set_target_gain / 100))}) / ({total_shares_bought} * (1 - {((set_tax / 100) + (fees_percentage / 100))}))''')
     expander2.markdown(f''' = {(gross_amount * (1 + (set_target_gain / 100)))} / {(total_shares_bought * (1 - ((set_tax / 100) + (fees_percentage / 100))))}''')
     expander2.markdown(f''' = ***{CURRENCY} {(gross_amount * (1 + (set_target_gain / 100))) / (total_shares_bought * (1 - ((set_tax / 100) + (fees_percentage / 100))))}***''')
 
-    expander2.markdown(f"""***Target selling price with additional investment*** = (New total gross amount invested * (1 + (target gain percentage / 100))) / (New total shares bought * (1 - ((set_tax / 100) + (fees_percentage / 100)))) """)
+    expander2.markdown(f"""***Target selling price with additional investment*** = (new total gross amount invested * (1 + (target gain percentage / 100))) / (new total shares bought * (1 - ((tax percentage / 100) + (fees percentage / 100)))) """)
     expander2.markdown(f''' = ({new_gross_amount} * (1 + ({set_target_gain} / 100))) / ({new_total_shares_bought} * (1 - (({set_tax} / 100) + ({fees_percentage} / 100))))''')
     expander2.markdown(f''' = ({new_gross_amount} * {(1 + (set_target_gain / 100))}) / ({new_total_shares_bought} * (1 - {((set_tax / 100) + (fees_percentage / 100))}))''')
     expander2.markdown(f''' = {(new_gross_amount * (1 + (set_target_gain / 100)))} / {(new_total_shares_bought * (1 - ((set_tax / 100) + (fees_percentage / 100))))}''')

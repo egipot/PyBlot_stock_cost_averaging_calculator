@@ -82,7 +82,7 @@ def get_event(filepath_r = 'entries.csv'):
         # If file not found, create it with headers
         with open(filepath_r, 'w', newline='') as writefile_local:
             writer = csv.writer(writefile_local)
-            writer.writerow(['Date', 'Num_of_Shares', 'Price_per_share', 'Cost_of_Transaction'])  # Add header
+            writer.writerow(['Date', 'Number of Shares', 'Price per share', 'Cost of Transaction'])  # Add header
             return [] # Return an empty list if file was not found initially
 
 
