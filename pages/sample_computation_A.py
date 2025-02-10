@@ -74,7 +74,7 @@ st.subheader('A: Calculate the gain/loss percentage based on the current price.'
 set_tax = 10 
 
 def calculationA_sample():
-    values = [200, 103.3365, 90]
+    values = [200, 103.7832, 90]
     sample_type = ['Investment with Gains', 'Breakeven', 'Investment with Losses']
     for index, current_stock_price in enumerate(values):
         st.write('-----------------------------------------------------') 
