@@ -57,6 +57,15 @@ col32.metric(label="Total commission/spread/fees in percentage",
                             border=True, 
                             help="Total amount paid solely for the stocks.")
 
+col41, col42, = st.columns(2)
+col41.metric(label="Other fees (maintenance, withdrawal, etc)", 
+                            value=f"{CURRENCY} 0.00", 
+                            border=True, 
+                            help="You may also add fees that may have been visible later in your statement of account, for example, fees for account maintenance or withdrawal, etc...")
+col42.metric(label="Dividends", 
+                            value=f"{CURRENCY} 0.00", 
+                            border=True, 
+                            help="Please check your statement of account and add here the total dividends received for this stock.")
 
 st.subheader('A: Calculate the gain/loss percentage based on the current price.')
 set_tax = 10 
