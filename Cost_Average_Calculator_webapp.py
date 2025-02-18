@@ -350,9 +350,9 @@ while user_prompt:
         st.subheader('C: Determine the target selling price of all your current stocks based on your preferred gain percentage.')
         set_target_gain = st.number_input('What is your target gain percentage (%)? ')
     
-        target_selling_price = (gross_amount * (1 + (set_target_gain / 100))) / ((total_shares_bought * (1 - ((set_tax / 100) + (fees_percentage / 100)))) - other_fees + dividends)
+        target_selling_price = (gross_amount * (1 + (set_target_gain / 100))) / (total_shares_bought * (1 - ((set_tax / 100) + (fees_percentage / 100)))) - other_fees + dividends
 
-        new_target_selling_price = (new_gross_amount * (1 + (set_target_gain / 100))) / ((new_total_shares_bought * (1 - ((set_tax / 100) + (fees_percentage / 100)))) - other_fees + dividends)
+        new_target_selling_price = (new_gross_amount * (1 + (set_target_gain / 100))) / (new_total_shares_bought * (1 - ((set_tax / 100) + (fees_percentage / 100)))) - other_fees + dividends
 
         st.markdown(f''':violet[To gain {set_target_gain}% with the initial shares of {round(total_shares_bought,2)}, you should set the target selling price to: ***{CURRENCY} {round(target_selling_price,2)}***]''')
         st.markdown(f''':violet[To gain {set_target_gain}% with the new total shares of {round(new_total_shares_bought,4)}, you should set the target selling price to: ***{CURRENCY} {round(new_target_selling_price,2)}***]''')
