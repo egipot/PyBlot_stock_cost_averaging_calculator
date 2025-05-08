@@ -30,8 +30,7 @@ st.markdown(''':red-background[6. The formula of calculations are based on the a
 st.text('\n')
 
 st.subheader("Improvement Plans:")
-st.markdown(''':violet[1. Option to set the fees in either percentage or amount.]''')
-st.markdown(''':violet[2. Visualizing the investment growth in a chart.]''')
+st.markdown(''':violet[1. Visualizing the investment growth in a chart.]''')
 st.text('\n')
 
 st.subheader('Alternatively, you may also check these tools and references: ')

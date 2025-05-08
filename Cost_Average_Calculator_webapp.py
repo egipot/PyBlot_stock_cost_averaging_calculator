@@ -14,7 +14,8 @@ st.text('This calculator aims to help determine the average share price that you
 
 
 def on_change_user_prompt():
-    st.session_state['selectbox']
+    selected = st.session_state['selectbox']
+    return selected
 
 options = ['add', 'view', 'edit', 'remove', 'calculate']
 
