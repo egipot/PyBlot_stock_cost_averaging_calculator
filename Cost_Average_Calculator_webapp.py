@@ -42,6 +42,10 @@ while user_prompt:
         event = fc.get_event()
         st.table(event)
         st.markdown('''*:gray[Note: Cost of Transaction = (number of shares * price per share) + broker commission, spread, and other fees.]*''')
+        if st.button('Overwrite existing table with sample transactions'):
+            event = fc.get_sample() # Get the sample transactions
+            fc.write_event(event) # Write all events to the CSV file
+            st.table(event)
         break
 
 
@@ -54,6 +58,7 @@ while user_prompt:
             entry_to_edit = int(st.text_input('Enter the row index to edit: '))
             if entry_to_edit not in range (len(all_events)):
                 st.warning('Provided row # does not exist.')
+                break
             else:
                 edited = fc.transaction_form()
                 all_events[entry_to_edit] = edited 
@@ -72,9 +77,18 @@ while user_prompt:
             st.markdown('''*:gray-background[These are the currently saved transactions. Feel free to add / edit / remove entries:]*''')
             all_events = fc.get_event() # Get the existing transactions
             st.table(all_events)
-            entry_to_remove = int(st.text_input('Enter the row index to remove: '))
+            entry_to_remove = int(st.text_input('Enter the row index to remove OR type 000 to clear all: '))
             if entry_to_remove not in range (len(all_events)):
                 st.warning('Provided row# does not exist.')
+            
+            elif entry_to_remove == 000:
+                all_events.clear()
+                st.info(f'All entries have been removed. Feel free to add new transactions.')
+                st.write('The updated transactions: ')
+                st.table(all_events)
+                fc.write_event(all_events) # Clear all events in the CSV file
+                break
+
             else:
                 all_events.pop(entry_to_remove)
                 st.info(f'Row #{entry_to_remove} has been removed.')
