@@ -77,13 +77,14 @@ while user_prompt:
             st.markdown('''*:gray-background[These are the currently saved transactions. Feel free to add / edit / remove entries:]*''')
             all_events = fc.get_event() # Get the existing transactions
             st.table(all_events)
-            entry_to_remove = int(st.text_input('Enter the row index to remove OR type 000 to clear all: '))
-            if entry_to_remove not in range (len(all_events)):
+            entry_to_remove = int(st.text_input('Enter the row index to remove OR type 999 to clear all: '))
+            if entry_to_remove not in range (len(all_events)) and entry_to_remove != 999:
                 st.warning('Provided row# does not exist.')
+                break
             
-            elif entry_to_remove == 000:
+            elif entry_to_remove == 999:
                 all_events.clear()
-                st.info(f'All entries have been removed. Feel free to add new transactions.')
+                st.info(f'All entries have been removed. Feel free to add new transactions (or add the sample transactions in VIEW mode).')
                 st.write('The updated transactions: ')
                 st.table(all_events)
                 fc.write_event(all_events) # Clear all events in the CSV file
